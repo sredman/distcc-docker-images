@@ -1,8 +1,8 @@
-FROM fedora:29
+FROM fedora:34
 
-LABEL maintainer="Konrad Kleine <kkleine@redhat.com>"
+LABEL maintainer="Simon Redman <simon@ergotech.com>"
 LABEL author="Konrad Kleine <kkleine@redhat.com>"
-LABEL description="A distccd image based on Fedora 29 that I use for distributed compilation of LLDB"
+LABEL description="A distccd image based on Fedora 34 used for distributed"
 ENV LANG=en_US.utf8
 
 RUN dnf install -y \
@@ -36,7 +36,6 @@ ENTRYPOINT [\
 CMD [\
   "--allow", "0.0.0.0/0", \
   "--nice", "5", \
-  "--jobs", "5" \
 ]
 
 # 3632 is the default distccd port
