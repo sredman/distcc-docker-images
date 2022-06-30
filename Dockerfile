@@ -1,4 +1,4 @@
-FROM fedora:34
+FROM fedora:36
 
 LABEL maintainer="Simon Redman <simon@ergotech.com>"
 LABEL author="Konrad Kleine <kkleine@redhat.com>"
