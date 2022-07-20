@@ -26,17 +26,17 @@ jobs:
         - image: fedora
           tag: '34'
     steps:
-      - name: "📥 Checkout Code"
+      - name: "Checkout Code"
         uses: actions/checkout@v3.0.0
         with:
           submodules: 'recursive'
           fetch-depth: 0
-      - name: Install Linux Dependencies
+      - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install ninja-build distcc ccache cmake -y
-      - name: build
+      - name: Build
         run: make ${{ matrix.images.tag }}
-      - name: test
+      - name: Test
         run: make ${{ matrix.images.tag }}.test
-#      - name: push
+#      - name: Push
 #        if: github.ref == 'refs/heads/master'
 #        run: make ${{ matrix.images.tag }}.test
