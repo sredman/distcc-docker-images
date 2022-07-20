@@ -1,0 +1,40 @@
+name: distcc-docker-images
+
+on:
+  push:
+    branches:
+      - '*'
+    paths-ignore:
+      - '**/README.md'
+  pull_request:
+    branches:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  distcc-docker-images:
+    name: distcc:${{ matrix.images.image }}:${{ matrix.images.tag }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        images:
+        - image: fedora
+          tag: '36'
+        - image: fedora
+          tag: '35'
+        - image: fedora
+          tag: '34'
+    steps:
+      - name: "📥 Checkout Code"
+        uses: actions/checkout@v3.0.0
+        with:
+          submodules: 'recursive'
+          fetch-depth: 0
+      - name: build
+        run: make ${{ matrix.images.tag }}
+      - name: test
+        run: make ${{ matrix.images.tag }}.test
+#      - name: push
+#        if: github.ref == 'refs/heads/master'
+#        run: make ${{ matrix.images.tag }}.test
