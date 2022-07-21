@@ -6,9 +6,6 @@ VERSION := 1.0.0
 
 .PHONY: all clean test $(SUBDIRS)
 
-test: $(SUBDIRS)
-	$(MAKE) -C $@ all
-
 clean: $(SUBDIRS)
 	$(MAKE) -C $@ clean
 
@@ -17,6 +14,10 @@ $(SUBDIRS):
 
 test: $(SUBDIRS)
 	$(MAKE) -C $@ all.test
+
+.SECONDEXPANSION:
+$(addsuffix .test,$(SUBDIRS)): $$(basename $$@)
+	$(MAKE) -C $(basename $@) $(basename $@).test
 
 push: $(SUBDIRS)
 	$(MAKE) -C $@ push
