@@ -26,6 +26,7 @@ ENV LANG=en_US.utf8
 
 RUN dnf install -y \
     clang \
+    ccache \
     distcc \
     distcc-server \
     gcc \
