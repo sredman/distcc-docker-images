@@ -13,11 +13,11 @@ $(SUBDIRS):
 	$(MAKE) -C $@ test VERSION="$(VERSION)"
 
 test: $(SUBDIRS)
-	$(MAKE) -C $@ all.test
+	$(MAKE) -C $@ test
 
 .SECONDEXPANSION:
 $(addsuffix .test,$(SUBDIRS)): $$(basename $$@)
-	$(MAKE) -C $(basename $@) $(basename $@).test
+	$(MAKE) -C $(basename $@) test
 
 push: $(SUBDIRS)
 	$(MAKE) -C $@ push
