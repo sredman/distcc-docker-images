@@ -13,18 +13,20 @@ on:
 
 jobs:
   distcc-docker-images:
-    name: distcc:${{ matrix.images.image }}:${{ matrix.images.tag }}
+    name: distcc:${{ matrix.images.image }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         images:
         - image: fedora
-          tag: '36'
-        - image: fedora
-          tag: '35'
-        - image: fedora
-          tag: '34'
+          tag: 'all'
+        - image: ubuntu
+          tag: 'all'
+        - image: debian
+          tag: 'all'
+        - image: archlinux
+          tag: 'all'
     steps:
       - name: "Checkout Code"
         uses: actions/checkout@v3.0.0
@@ -34,9 +36,9 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install ninja-build distcc ccache cmake -y
       - name: Build
-        run: make ${{ matrix.images.tag }}
+        run: make ${{ matrix.images.image }}
       - name: Test
-        run: make ${{ matrix.images.tag }}.test
+        run: make ${{ matrix.images.image }}.test
 #      - name: Push
 #        if: github.ref == 'refs/heads/master'
 #        run: make ${{ matrix.images.tag }}.test
